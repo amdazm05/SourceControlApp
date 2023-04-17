@@ -72,15 +72,16 @@
                 <ComboBoxItem Content="Fixed" />
                 <ComboBoxItem Content="FreqSweep"/>
                 <ComboBoxItem Content="PowerSweep"/>
-                <ComboBoxItem Content="FreqPowerSweep"/>
-                <ComboBoxItem Content="PowerFreqSweep"/>
+                <ComboBoxItem Content="Frequecy-Power-Sweep"/>
+                <ComboBoxItem Content="Power-Frequency-Sweep"/>
             </ComboBox.Items>
         </ComboBox>
         <!--This is a hidden view only initiated when we trigger it externally on selecting a  mode-->
 
         <!--Set Grid Z index--> 
         <local:RFSweepViewControl
-            Visibility="Hidden"
+            x:Name="FrequencySweepView"
+            Visibility="{Binding Path=isVisibileFreqSweep,UpdateSourceTrigger = PropertyChanged }"
             Grid.Column="0"
             Grid.Row="0"
             Grid.ColumnSpan="3"
@@ -88,7 +89,8 @@
             >
         </local:RFSweepViewControl>
         <local:RFPowerSweepViewControl
-            Visibility="Hidden"
+            x:Name="PowerSweepView"
+            Visibility="{Binding Path=isVisibilePowerSweep,UpdateSourceTrigger = PropertyChanged }"
             Grid.Column="0"
             Grid.Row="0"
             Grid.ColumnSpan="3"

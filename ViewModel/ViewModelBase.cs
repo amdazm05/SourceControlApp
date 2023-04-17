@@ -15,5 +15,6 @@ namespace RFSourceControllerApp.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public class RelayCommand { }
     }
 }

@@ -50,9 +50,10 @@
             VerticalAlignment="Center"
             Background="WhiteSmoke"
             >
-            <TextBox  x:Name="ioBoxFreqStart" Text="1G"    />
-            <TextBox  x:Name="ioBoxFreqEnd"  Text="100n"    />
-            <TextBox  x:Name="ioBoxStepSize" Text="100u"   />
+            <TextBox  x:Name="ioBoxFreqStart"   Text="1G"     />
+            <TextBox  x:Name="ioBoxFreqEnd"     Text="100n"   />
+            <TextBox  x:Name="ioBoxStepSize"    Text="100u"   />
         </StackPanel>
+        <Button x:Name ="SetButton" Margin="30,30" Grid.Column="2" Grid.Row="2" Background="Azure">Set</Button>
     </Grid>
 </UserControl>

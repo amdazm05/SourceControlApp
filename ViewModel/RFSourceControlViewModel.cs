@@ -3,15 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using RFSourceControllerApp.Model;
 
 namespace RFSourceControllerApp.ViewModel
 {
     class RFSourceControlViewModel : ViewModelBase
     {
-        //A copy of the model
-        private  RFSourceSweepTypes _RFSourceSweeptype;
-        private  RFSourceParameters _RFSourceParameters;
+        private RFSourceSweepTypes _RFSourceSweeptype;
+        private RFSourceParameters _RFSourceParameters;
+
+        //Intially these views are hidden
+        private string _isVisibilePowerSweep = "Hidden";
+        private string _isVisibileFreqSweep = "Hidden";
+        public string isVisibilePowerSweep
+        {
+            get
+            {
+                return _isVisibilePowerSweep;
+            }
+            set
+            {
+                _isVisibilePowerSweep = value;
+                OnPropertyChanged(nameof(isVisibilePowerSweep));
+            }
+        }
+
+        public string isVisibileFreqSweep
+        {
+            get
+            {
+                return _isVisibileFreqSweep;
+            }
+            set
+            {
+                _isVisibileFreqSweep = value;
+                OnPropertyChanged(nameof(isVisibileFreqSweep));
+            }
+        }
+
+        //Sweep modes
         public string SweepType
         {
             get
@@ -21,6 +52,11 @@ namespace RFSourceControllerApp.ViewModel
             set
             {
                 _RFSourceSweeptype.SweepType = value;
+                if(_RFSourceSweeptype.SweepType.Contains("FreqSweep"))
+                    isVisibileFreqSweep = "Visible";
+                if (_RFSourceSweeptype.SweepType.Contains("PowerSweep"))
+                    isVisibilePowerSweep = "Visible";
+                
                 OnPropertyChanged(nameof(SweepType));
             }
         }
@@ -90,9 +126,6 @@ namespace RFSourceControllerApp.ViewModel
                 OnPropertyChanged(nameof(isCWChecked));
             }
         }
-        
-
-
         public RFSourceControlViewModel(RFSourceSweepTypes RFSourceSweeptype, RFSourceParameters SourceParams)
         {
             _RFSourceSweeptype = RFSourceSweeptype;
