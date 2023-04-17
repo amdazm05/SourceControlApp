@@ -86,6 +86,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <CheckBox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch"  Style="{DynamicResource CheckBoxStyle1}" VerticalAlignment="Center"/>
+        <CheckBox  x:Name="CheckBoxSwitch" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch"  Style="{DynamicResource CheckBoxStyle1}" VerticalAlignment="Center"/>
         </Grid>
 </UserControl>

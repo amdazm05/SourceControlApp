@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              FontSize="16"
              FontFamily="Segoe UI Light"
-             d:DesignHeight="720" d:DesignWidth="720">
+             d:DesignHeight="360" d:DesignWidth="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -44,10 +44,10 @@
             <TextBlock>Pulse Width (PW)</TextBlock>
             <TextBlock>Pulse Return Interval (PRI)</TextBlock>
             <TextBlock>Power (dBm)</TextBlock>
-            <TextBlock>Enable CW</TextBlock>
         </StackPanel>
         <!--This panel is for all the input fields-->
         <StackPanel
+            x:Name="inputFields"
             Margin="10,10"
             Orientation="Vertical"
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="7" Grid.ColumnSpan="2"
@@ -55,24 +55,45 @@
             VerticalAlignment="Center"
             Background="WhiteSmoke"
             >
-            <TextBox  x:Name="ioBoxFreq" Text="1G"    />
-            <TextBox  x:Name="ioBoxPw"  Text="100n"    />
-            <TextBox  x:Name="ioBoxPri" Text="100u"   />
-            <TextBox  x:Name="ioBoxPower" Text="-50"  />
-            <uc:ToggleSwitch HorizontalAlignment="Left"></uc:ToggleSwitch>
+            <TextBox Text="{Binding Path=RfUpdate,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PwUpdate,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PriUpdate,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PowerUpdate,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Enable CW</TextBlock>
+        <uc:ToggleSwitch x:Name="CWToggleSwitch" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch"></uc:ToggleSwitch>
         <ComboBox 
-            x:Name="sweepboxProfiles"  
-            Margin="25,50"
+            SelectedValue="{Binding Path=SweepType}"
+            Margin="20,20"
+            Height="40"
             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" 
             HorizontalAlignment="Stretch" IsReadOnly="True">
             <ComboBox.Items>
-                <ComboBoxItem Content="Fixed"/>
+                <ComboBoxItem Content="Fixed" />
                 <ComboBoxItem Content="FreqSweep"/>
                 <ComboBoxItem Content="PowerSweep"/>
                 <ComboBoxItem Content="FreqPowerSweep"/>
                 <ComboBoxItem Content="PowerFreqSweep"/>
             </ComboBox.Items>
         </ComboBox>
+        <!--This is a hidden view only initiated when we trigger it externally on selecting a  mode-->
+
+        <!--Set Grid Z index--> 
+        <local:RFSweepViewControl
+            Visibility="Hidden"
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="3"
+            >
+        </local:RFSweepViewControl>
+        <local:RFPowerSweepViewControl
+            Visibility="Hidden"
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="3"
+            >
+        </local:RFPowerSweepViewControl>
     </Grid>
 </UserControl>

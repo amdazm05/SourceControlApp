@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace RFSourceControllerApp.Views
 {
     /// <summary>
-    /// Interaction logic for RFSourceControlBoxView.xaml
+    /// Interaction logic for RFPowerSweepViewControl.xaml
     /// </summary>
-    public partial class RFSourceControlBoxView : UserControl
+    public partial class RFPowerSweepViewControl : UserControl
     {
-        public RFSourceControlBoxView()
+        public RFPowerSweepViewControl()
         {
             InitializeComponent();
-            //Bind the switch in here
-            Binding xBinding = new Binding();
-            xBinding.Path = new PropertyPath("isCWChecked");
-            xBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            BindingOperations.SetBinding(CWToggleSwitch.CheckBoxSwitch, CheckBox.IsCheckedProperty, xBinding);
         }
     }
 }

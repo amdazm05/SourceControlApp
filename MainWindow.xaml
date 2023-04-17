@@ -14,6 +14,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <uc:RFSourceControlBoxView Grid.Column="0" Grid.Row="0"></uc:RFSourceControlBoxView>
+        <uc:RFSourceControlBoxView DataContext="{Binding CurrentViewModel}" Grid.Column="0" Grid.Row="0"></uc:RFSourceControlBoxView>
     </Grid>
 </Window>

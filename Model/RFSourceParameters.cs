@@ -9,6 +9,33 @@ namespace RFSourceControllerApp.Model
 
     class RFSourceParameters
     {
+
+        public double Rf 
+        { 
+            get; 
+            set;
+        }
+        public double Pri 
+        { 
+            get; 
+            set; 
+        }
+        public double Pw 
+        { 
+            get; 
+            set; 
+        }
+        public double Power 
+        { 
+            get; 
+            set; 
+        }
+        public bool isCW 
+        {
+            get; 
+            set; 
+        }
+
         public RFSourceParameters()
         {
 

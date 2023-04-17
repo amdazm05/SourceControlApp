@@ -58,8 +58,17 @@
     <Compile Include="UIFragments\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RFSourceControlViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\RFPowerSweepViewControl.xaml.cs">
+      <DependentUpon>RFPowerSweepViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RFSourceControlBoxView.xaml.cs">
       <DependentUpon>RFSourceControlBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RFFrequencySweepViewControl.xaml.cs">
+      <DependentUpon>RFFrequencySweepViewControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -77,7 +86,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RFPowerSweepViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RFSourceControlBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RFFrequencySweepViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
