@@ -28,6 +28,15 @@ namespace RFSourceControllerApp.Views
             xBinding.Path = new PropertyPath("isCWChecked");
             xBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             BindingOperations.SetBinding(CWToggleSwitch.CheckBoxSwitch, CheckBox.IsCheckedProperty, xBinding);
+
+
+            Binding xBinding_Freq = new Binding();
+            xBinding_Freq.Path = new PropertyPath("ButtonCommand");
+            BindingOperations.SetBinding(FrequencySweepView.SetButton, Button.CommandProperty, xBinding_Freq);
+
+            Binding xBinding_Power = new Binding();
+            xBinding_Power.Path = new PropertyPath("ButtonCommand");
+            BindingOperations.SetBinding(PowerSweepView.SetButton, Button.CommandProperty, xBinding_Power);
         }
     }
 }

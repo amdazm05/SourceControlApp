@@ -53,6 +53,6 @@
             <TextBox  x:Name="ioBoxEndingPower"     Text="100n"    />
             <TextBox  x:Name="ioBoxPowerStep"       Text="100u"   />
         </StackPanel>
-        <Button x:Name ="SetButton" Margin="30,30" Grid.Column="2" Grid.Row="2" Background="Azure">Set</Button>
+        <Button  x:Name ="SetButton" Margin="30,30" Grid.Column="2" Grid.Row="2" Background="Azure">Set</Button>
     </Grid>
 </UserControl>

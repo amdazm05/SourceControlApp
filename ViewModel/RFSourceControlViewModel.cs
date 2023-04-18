@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 using RFSourceControllerApp.Model;
 
 namespace RFSourceControllerApp.ViewModel
@@ -126,10 +127,31 @@ namespace RFSourceControllerApp.ViewModel
                 OnPropertyChanged(nameof(isCWChecked));
             }
         }
+
+        private ICommand _ButtonCommand;
+        public ICommand ButtonCommand
+        {
+            get
+            {
+                return _ButtonCommand;
+            }
+            set
+            {
+                _ButtonCommand = value;
+            }
+        }
+
+        public void HideViews(object obj)
+        {
+            isVisibilePowerSweep = "Hidden";
+            isVisibileFreqSweep = "Hidden";
+        }
+
         public RFSourceControlViewModel(RFSourceSweepTypes RFSourceSweeptype, RFSourceParameters SourceParams)
         {
             _RFSourceSweeptype = RFSourceSweeptype;
             _RFSourceParameters = SourceParams;
+            ButtonCommand = new RelayCommand(new Action<object>(HideViews));
         }
     }
 }
