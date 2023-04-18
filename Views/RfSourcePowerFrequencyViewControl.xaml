@@ -1,14 +1,13 @@
-﻿<UserControl x:Class="RFSourceControllerApp.Views.RFSweepViewControl"
+﻿<UserControl x:Class="RFSourceControllerApp.Views.RfSourcePowerFrequencyViewControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RFSourceControllerApp.Views"
-             xmlns:uc="clr-namespace:RFSourceControllerApp.UIFragments"
              mc:Ignorable="d" 
              FontSize="16"
              FontFamily="Segoe UI Light"
-             d:DesignHeight="360" d:DesignWidth="600">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -37,12 +36,15 @@
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Center"
             Background="WhiteSmoke">
+            <TextBlock>Starting Power</TextBlock>
+            <TextBlock>Ending Power</TextBlock>
+            <TextBlock>Power Step</TextBlock>
             <TextBlock>Starting Frequency(Hz)</TextBlock>
             <TextBlock>Ending Frequency</TextBlock>
             <TextBlock>Step Size (Hz)</TextBlock>
             <TextBlock>Dwell Time (ms)</TextBlock>
         </StackPanel>
-        <!--This panel is for all the input fields-->
+
         <StackPanel
             Margin="10,10"
             Orientation="Vertical"
@@ -51,10 +53,13 @@
             VerticalAlignment="Center"
             Background="WhiteSmoke"
             >
-            <TextBox  x:Name="ioBoxFreqStart"   Text="1G"     />
-            <TextBox  x:Name="ioBoxFreqEnd"     Text="100n"   />
-            <TextBox  x:Name="ioBoxStepSize"    Text="100u"   />
-            <TextBox  x:Name="ioDwellTime"    Text="100u"   />
+            <TextBox  x:Name="ioBoxStartingPower"   Text="1G"    />
+            <TextBox  x:Name="ioBoxEndingPower"     Text="100n"  />
+            <TextBox  x:Name="ioBoxPowerStep"       Text="100u"  />
+            <TextBox  x:Name="ioBoxFreqStart"       Text="1G"    />
+            <TextBox  x:Name="ioBoxFreqEnd"         Text="100n"  />
+            <TextBox  x:Name="ioBoxStepSize"        Text="100u"  />
+            <TextBox  x:Name="ioDwellTime"        Text="100u"  />
         </StackPanel>
         <Button  x:Name ="SetButton" Margin="30,30" Grid.Column="2" Grid.Row="2" Background="Azure">Set</Button>
     </Grid>

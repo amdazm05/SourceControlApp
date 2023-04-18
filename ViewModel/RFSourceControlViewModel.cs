@@ -17,6 +17,37 @@ namespace RFSourceControllerApp.ViewModel
         //Intially these views are hidden
         private string _isVisibilePowerSweep = "Hidden";
         private string _isVisibileFreqSweep = "Hidden";
+        private string _isVisibileFreqPowerSweep = "Hidden";
+
+
+        private string _isRFButtonVisible = "Visible";
+
+        public string isRFButtonVisible
+        {
+            get
+            {
+                return _isRFButtonVisible;
+            }
+            set
+            {
+                _isRFButtonVisible = value;
+                OnPropertyChanged(nameof(isRFButtonVisible));
+            }
+        }
+
+        public string isVisibileFreqPowerSweep
+        {
+            get
+            {
+                return _isVisibileFreqPowerSweep;
+            }
+            set
+            {
+                _isVisibileFreqPowerSweep = value;
+                OnPropertyChanged(nameof(isVisibileFreqPowerSweep));
+            }
+        }
+
         public string isVisibilePowerSweep
         {
             get
@@ -54,10 +85,26 @@ namespace RFSourceControllerApp.ViewModel
             {
                 _RFSourceSweeptype.SweepType = value;
                 if(_RFSourceSweeptype.SweepType.Contains("FreqSweep"))
+                {
                     isVisibileFreqSweep = "Visible";
+                    isRFButtonVisible = "Hidden";
+
+                }
                 if (_RFSourceSweeptype.SweepType.Contains("PowerSweep"))
+                {
                     isVisibilePowerSweep = "Visible";
-                
+                    isRFButtonVisible = "Hidden";
+                }
+                if (_RFSourceSweeptype.SweepType.Contains("Frequency-Power") || _RFSourceSweeptype.SweepType.Contains("Power-Frequency"))
+                {
+                    isVisibileFreqPowerSweep = "Visible";
+                    isRFButtonVisible = "Hidden";
+                }
+                if (_RFSourceSweeptype.SweepType.Contains("Fixed"))
+                {
+                    isRFButtonVisible = "Visible";
+                }
+
                 OnPropertyChanged(nameof(SweepType));
             }
         }
@@ -145,6 +192,7 @@ namespace RFSourceControllerApp.ViewModel
         {
             isVisibilePowerSweep = "Hidden";
             isVisibileFreqSweep = "Hidden";
+            isVisibileFreqPowerSweep = "Hidden";
         }
 
         public RFSourceControlViewModel(RFSourceSweepTypes RFSourceSweeptype, RFSourceParameters SourceParams)

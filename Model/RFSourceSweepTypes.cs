@@ -12,13 +12,14 @@ namespace RFSourceControllerApp.Model
         public string SweepType;
 
         //Sweep related variables 
-        public double DwellTime;
-        public double RfStart;
-        public double RfStop;
-        public double RfStep;
-        public double PowerStart;
-        public double PowerStop;
-        public double PowerStep;
+        public double   DwellTime;
+        public double   RfStart;
+        public double   RfStop;
+        public double   RfStep;
+        public double   PowerStart;
+        public double   PowerStop;
+        public double   PowerStep;
+        public bool     isTriggered;
         public RFSourceSweepTypes()
         {
             SweepType = null;

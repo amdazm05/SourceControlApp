@@ -70,6 +70,9 @@
     <Compile Include="Views\RFFrequencySweepViewControl.xaml.cs">
       <DependentUpon>RFFrequencySweepViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RfSourcePowerFrequencyViewControl.xaml.cs">
+      <DependentUpon>RfSourcePowerFrequencyViewControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RFFrequencySweepViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RfSourcePowerFrequencyViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

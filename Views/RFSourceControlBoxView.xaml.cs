@@ -37,6 +37,10 @@ namespace RFSourceControllerApp.Views
             Binding xBinding_Power = new Binding();
             xBinding_Power.Path = new PropertyPath("ButtonCommand");
             BindingOperations.SetBinding(PowerSweepView.SetButton, Button.CommandProperty, xBinding_Power);
+
+            Binding xBinding_PowerFreq = new Binding();
+            xBinding_PowerFreq.Path = new PropertyPath("ButtonCommand");
+            BindingOperations.SetBinding(PowerFreqSweepView.SetButton, Button.CommandProperty, xBinding_PowerFreq);
         }
     }
 }

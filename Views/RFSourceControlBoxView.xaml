@@ -16,11 +16,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-
-        <!--This is the background-->
+        
+            <!--This is the background-->
         </Grid.RowDefinitions>
         <Rectangle 
             Grid.Column="0" 
@@ -31,11 +33,18 @@
                 <SolidColorBrush Color="WhiteSmoke" />
             </Rectangle.Fill>
         </Rectangle>
+        <Button
+            Visibility="{Binding Path=isRFButtonVisible,UpdateSourceTrigger=PropertyChanged}"
+            Grid.Column="2" 
+            Grid.Row="2" 
+            VerticalAlignment="Stretch" 
+            x:Name="StepButton" Margin="10,10" 
+            Background="Azure">RF ON</Button>
         <!--This panel is for descriptions of parameters-->
         <StackPanel 
             Margin="10,10"
-            Orientation="Vertical" Grid.Row="0" 
-            Grid.Column="0" Grid.RowSpan="7"
+            Orientation="Vertical" Grid.Row="1" 
+            Grid.Column="0" Grid.RowSpan="1"
             Grid.ColumnSpan="1"
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Center"
@@ -50,7 +59,7 @@
             x:Name="inputFields"
             Margin="10,10"
             Orientation="Vertical"
-            Grid.Column="1" Grid.Row="0" Grid.RowSpan="7" Grid.ColumnSpan="2"
+            Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             Background="WhiteSmoke"
@@ -72,7 +81,7 @@
                 <ComboBoxItem Content="Fixed" />
                 <ComboBoxItem Content="FreqSweep"/>
                 <ComboBoxItem Content="PowerSweep"/>
-                <ComboBoxItem Content="Frequecy-Power-Sweep"/>
+                <ComboBoxItem Content="Frequency-Power-Sweep"/>
                 <ComboBoxItem Content="Power-Frequency-Sweep"/>
             </ComboBox.Items>
         </ComboBox>
@@ -97,5 +106,15 @@
             Grid.RowSpan="3"
             >
         </local:RFPowerSweepViewControl>
+        <local:RfSourcePowerFrequencyViewControl
+            x:Name="PowerFreqSweepView"
+            Visibility="{Binding Path=isVisibileFreqPowerSweep,UpdateSourceTrigger = PropertyChanged }"
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="4"
+            >
+        </local:RfSourcePowerFrequencyViewControl>
+        
     </Grid>
 </UserControl>
