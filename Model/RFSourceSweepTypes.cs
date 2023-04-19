@@ -9,17 +9,59 @@ namespace RFSourceControllerApp.Model
     class RFSourceSweepTypes
     {
         //Type of sweep
-        public string SweepType;
-
+        public string SweepType
+        {
+            get;
+            set;
+        }
         //Sweep related variables 
-        public double   DwellTime;
-        public double   RfStart;
-        public double   RfStop;
-        public double   RfStep;
-        public double   PowerStart;
-        public double   PowerStop;
-        public double   PowerStep;
-        public bool     isTriggered;
+        public double   DwellTime
+        {
+            get;
+            set;
+        }
+        public double   RfStart
+        { 
+            get; 
+            set; 
+        }
+        public double   RfStop
+        { 
+            get; 
+            set; 
+        }
+        public double   RfStep
+        { 
+            get; 
+            set; 
+        }
+        public double   PowerStart
+        { 
+            get; 
+            set; 
+        }
+        public double   PowerStop
+        { 
+            get; 
+            set; 
+        }
+        public double   PowerStep
+        { 
+            get; 
+            set; 
+        }
+        public bool StartSweep
+        { 
+            get; 
+            set; 
+        }
+
+        public double   StepSize
+        {
+            get;
+            set;
+        }
+
         public RFSourceSweepTypes()
         {
             SweepType = null;

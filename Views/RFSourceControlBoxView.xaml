@@ -34,12 +34,24 @@
             </Rectangle.Fill>
         </Rectangle>
         <Button
+            Visibility="{Binding Path=isSweepStartVisible,UpdateSourceTrigger=PropertyChanged}"
+            Grid.Column="0" 
+            Grid.Row="0" 
+            VerticalAlignment="Stretch" 
+            Margin="10,10" 
+            Command="{Binding Path=SweepStartCommand}"
+            Content ="{Binding Path=SweepButtonStartContent}"
+            Background="Azure"></Button>
+        <Button
             Visibility="{Binding Path=isRFButtonVisible,UpdateSourceTrigger=PropertyChanged}"
             Grid.Column="2" 
-            Grid.Row="2" 
+            Grid.Row="3" 
             VerticalAlignment="Stretch" 
-            x:Name="StepButton" Margin="10,10" 
-            Background="Azure">RF ON</Button>
+            Command="{Binding Path=RfButtonCommand}"
+            Margin="10,10" 
+            Background="Azure"
+            Content="{Binding Path=RFButtonONOFFContent}"
+            ></Button>
         <!--This panel is for descriptions of parameters-->
         <StackPanel 
             Margin="10,10"
@@ -64,13 +76,13 @@
             VerticalAlignment="Center"
             Background="WhiteSmoke"
             >
-            <TextBox Text="{Binding Path=RfUpdate,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Text="{Binding Path=PwUpdate,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Text="{Binding Path=PriUpdate,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Text="{Binding Path=PowerUpdate,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=RfUpdate,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FixedParameterEnabled,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PwUpdate,UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding Path=FixedParameterEnabled,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PriUpdate,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=FixedParameterEnabled,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding Path=PowerUpdate,UpdateSourceTrigger=PropertyChanged}"  IsEnabled="{Binding Path=FixedParameterEnabled,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Enable CW</TextBlock>
-        <uc:ToggleSwitch x:Name="CWToggleSwitch" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch"></uc:ToggleSwitch>
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Enable CW</TextBlock>
+        <uc:ToggleSwitch x:Name="CWToggleSwitch" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch"></uc:ToggleSwitch>
         <ComboBox 
             SelectedValue="{Binding Path=SweepType}"
             Margin="20,20"
@@ -85,16 +97,52 @@
                 <ComboBoxItem Content="Power-Frequency-Sweep"/>
             </ComboBox.Items>
         </ComboBox>
-        <!--This is a hidden view only initiated when we trigger it externally on selecting a  mode-->
 
-        <!--Set Grid Z index--> 
+        <StackPanel
+            Visibility="{Binding Path=SweepParametersVisible}"
+            Margin="10,10"
+            Orientation="Horizontal"
+            Grid.Column="0" Grid.Row="2" Grid.RowSpan="1" Grid.ColumnSpan="3"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            >
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=RfStart,UpdateSourceTrigger=PropertyChanged, StringFormat= 'RfStart = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=RfStop,UpdateSourceTrigger=PropertyChanged, StringFormat= 'RfStop = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=StepSize,UpdateSourceTrigger=PropertyChanged, StringFormat= 'RFStepSize = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=PowerStart,UpdateSourceTrigger=PropertyChanged, StringFormat= 'PowerStart = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=PowerStop,UpdateSourceTrigger=PropertyChanged, StringFormat= 'PowerStop = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=PowerStep,UpdateSourceTrigger=PropertyChanged, StringFormat= 'PowerStep = \{0\}  '}" 
+                     IsEnabled="false"/>
+            <TextBox BorderThickness="0" Background="Transparent" 
+                     Visibility="{Binding Path=SweepInfoBar,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Path=DwellTime,UpdateSourceTrigger=PropertyChanged, StringFormat= 'DwellTime = \{0\}  '}" 
+                     IsEnabled="false"/>
+        </StackPanel>
+        <!--These are hidden views only initiated when we trigger it externally on selecting a  mode-->
         <local:RFSweepViewControl
             x:Name="FrequencySweepView"
             Visibility="{Binding Path=isVisibileFreqSweep,UpdateSourceTrigger = PropertyChanged }"
             Grid.Column="0"
             Grid.Row="0"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="3"
+            Grid.RowSpan="4"
             >
         </local:RFSweepViewControl>
         <local:RFPowerSweepViewControl
@@ -103,7 +151,7 @@
             Grid.Column="0"
             Grid.Row="0"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="3"
+            Grid.RowSpan="4"
             >
         </local:RFPowerSweepViewControl>
         <local:RfSourcePowerFrequencyViewControl
