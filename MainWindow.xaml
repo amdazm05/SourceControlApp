@@ -12,8 +12,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <uc:RFSourceControlBoxView DataContext="{Binding CurrentViewModel}" Grid.Column="0" Grid.Row="0"></uc:RFSourceControlBoxView>
+        <uc:TcpClientConfiguration DataContext="{Binding ClientTCPViewModel}" Grid.Column="0" Grid.Row="1"></uc:TcpClientConfiguration>
     </Grid>
 </Window>

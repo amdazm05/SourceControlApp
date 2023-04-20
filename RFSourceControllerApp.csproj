@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,11 +58,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Data\Transmission.cs" />
+    <Compile Include="Model\Data\TransmissionResult.cs" />
+    <Compile Include="Model\EventArg\ReceivedEventArgs.cs" />
+    <Compile Include="Model\TcpClient.cs" />
+    <Compile Include="Model\Util\DialogUtils.cs" />
+    <Compile Include="Model\Util\NetworkUtils.cs" />
+    <Compile Include="Model\Util\SettingsUtils.cs" />
+    <Compile Include="Model\Util\StringFormatUtils.cs" />
     <Compile Include="UIFragments\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessageSendViewModel.cs" />
     <Compile Include="ViewModel\RFSourceControlViewModel.cs" />
+    <Compile Include="ViewModel\TcpClientViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\RFPowerSweepViewControl.xaml.cs">
       <DependentUpon>RFPowerSweepViewControl.xaml</DependentUpon>
@@ -72,6 +85,9 @@
     </Compile>
     <Compile Include="Views\RfSourcePowerFrequencyViewControl.xaml.cs">
       <DependentUpon>RfSourcePowerFrequencyViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TcpClientConfiguration.xaml.cs">
+      <DependentUpon>TcpClientConfiguration.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -105,6 +121,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TcpClientConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\RFSourceOperationModes.cs" />
@@ -127,6 +147,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

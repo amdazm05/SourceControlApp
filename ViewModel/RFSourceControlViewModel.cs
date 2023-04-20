@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using RFSourceControllerApp.Model;
+using Newtonsoft.Json;
 
 namespace RFSourceControllerApp.ViewModel
 {
@@ -25,6 +26,8 @@ namespace RFSourceControllerApp.ViewModel
         private ICommand _RfButtonCommand;
         private ICommand _SweepStartCommand;
         private bool _FixedParameterEnabled = true;
+        //Used for triggering Send data to an outside source
+        public event Action<byte[]> SendData;
 
         public string RFButtonONOFFContent
         {
@@ -385,6 +388,12 @@ namespace RFSourceControllerApp.ViewModel
             }
         }
 
+        public string JSONifyModel()
+        {
+            return JsonConvert.SerializeObject(_RFSourceParameters);
+            
+        }
+
         public ICommand RfButtonCommand
         {
             get
@@ -394,6 +403,7 @@ namespace RFSourceControllerApp.ViewModel
             set
             {
                 _RfButtonCommand = value;
+                
             }
         }
 
@@ -420,10 +430,17 @@ namespace RFSourceControllerApp.ViewModel
         {
             //Toggle RF State 
             _RFSourceParameters.isRFOn = !_RFSourceParameters.isRFOn;
+            byte[] bufferToTransmit = Encoding.ASCII.GetBytes(JSONifyModel());
+            if(SendData !=null)
+                SendData?.Invoke(bufferToTransmit);
             if (_RFSourceParameters.isRFOn)
+            {
                 RFButtonONOFFContent = "RF ON";
+            }
             else
+            {
                 RFButtonONOFFContent = "RF OFF";
+            }
         }
 
         public void ToggleSweepStart(object obj)
