@@ -7,7 +7,7 @@ using RFSourceControllerApp.ViewModel;
 
 namespace RFSourceControllerApp.ViewModel
 {
-    class MessageSendViewModel
+    class MessageSendViewModel : TcpClientViewModel
     {
         private RFSourceControlViewModel _SourceControlViewModel;
         private TcpClientViewModel _NetworkClientViewModel;
@@ -16,6 +16,8 @@ namespace RFSourceControllerApp.ViewModel
             _SourceControlViewModel = SourceControlViewModel;
             _NetworkClientViewModel = NetworkClientViewModel;
             _SourceControlViewModel.SendData += _NetworkClientViewModel.OnSend;
+            _NetworkClientViewModel._tcpClient.Received += _SourceControlViewModel.ParseJSONDataToSourceModel;
+
         }
     }
 }

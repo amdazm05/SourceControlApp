@@ -7,6 +7,8 @@ using System.Windows.Input;
 using System.Windows;
 using RFSourceControllerApp.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RFSourceControllerApp.Model.EventArg;
 
 namespace RFSourceControllerApp.ViewModel
 {
@@ -334,6 +336,14 @@ namespace RFSourceControllerApp.ViewModel
             set
             {
                 _RFSourceParameters.isRFOn = value;
+                if (_RFSourceParameters.isRFOn)
+                {
+                    RFButtonONOFFContent = "RF ON";
+                }
+                else
+                {
+                    RFButtonONOFFContent = "RF OFF";
+                }
                 OnPropertyChanged(nameof(isRFOn));
             }
         }
@@ -392,6 +402,18 @@ namespace RFSourceControllerApp.ViewModel
         {
             return JsonConvert.SerializeObject(_RFSourceParameters);
             
+        }
+
+        public void ParseJSONDataToSourceModel(object obj, RecievedDataByteBuffer arg)
+        {
+            string json = Encoding.Default.GetString(arg.Message);
+            JObject jsonObject = JObject.Parse(json);
+            isRFOn = Convert.ToBoolean(jsonObject.SelectToken("isRFOn").ToString());
+            isCWChecked = Convert.ToBoolean(jsonObject.SelectToken("isCW").ToString());
+            PwUpdate = Convert.ToDouble(jsonObject.SelectToken("Pw").ToString());
+            PriUpdate = Convert.ToDouble(jsonObject.SelectToken("Pri").ToString());
+            PowerUpdate = Convert.ToDouble(jsonObject.SelectToken("Power").ToString());
+            RfUpdate = Convert.ToDouble(jsonObject.SelectToken("Rf").ToString());
         }
 
         public ICommand RfButtonCommand

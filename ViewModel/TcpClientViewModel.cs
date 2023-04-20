@@ -14,7 +14,7 @@ namespace RFSourceControllerApp.ViewModel
     class TcpClientViewModel : ViewModelBase
     {
         //This is the TCP client Model
-        private TcpClient _tcpClient;
+        public TcpClient _tcpClient;
         //Shows the connected status
         private bool _isConnected;
         //stores the Ip

@@ -14,7 +14,7 @@ namespace RFSourceControllerApp.Model
     public class TcpClient : IDisposable
     {
       
-        public event EventHandler<ReceivedEventArgs> Received;
+        public event EventHandler<RecievedDataByteBuffer> Received;
         public event EventHandler<TcpClientStatusEventArgs> StatusChanged;
 
         private System.Net.Sockets.TcpClient _tcpClient;
@@ -100,7 +100,7 @@ namespace RFSourceControllerApp.Model
                             msg.Destination = _tcpClient.Client.LocalEndPoint as IPEndPoint;
                             msg.Origin = _tcpClient.Client.RemoteEndPoint as IPEndPoint;
 
-                            Received?.Invoke(this, new ReceivedEventArgs(msg));
+                            Received?.Invoke(this, new RecievedDataByteBuffer(data));
                         }
                         else
                         {

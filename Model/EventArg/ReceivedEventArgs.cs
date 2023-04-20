@@ -14,4 +14,16 @@ namespace RFSourceControllerApp.Model.EventArg
         }
 
     }
+
+    public class RecievedDataByteBuffer : EventArgs
+    {
+
+        public byte[] Message { get; set; }
+
+        public RecievedDataByteBuffer(byte[] message)
+        {
+            Message = message;
+        }
+
+    }
 }
