@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace RFSourceControllerApp.Model.Data
 {
+    [StructLayout(LayoutKind.Explicit, Size = 16, Pack = 1)]
     class MessagePacketHeader
     {
-        private ulong _Header;
-        private int _Messagetype;
-        private uint _MessageSize;
+        [FieldOffset(0)]
+        private UInt64 _Header;
+        [FieldOffset(8)]
+        private Int32 _Messagetype;
+        [FieldOffset(12)]
+        private UInt32 _MessageSize;
 
-        public ulong Header
+        public UInt64 Header
         {
             get
             {
@@ -25,7 +30,7 @@ namespace RFSourceControllerApp.Model.Data
             }
         }
 
-        public int Messagetype
+        public Int32 Messagetype
         {
             get
             {
@@ -38,7 +43,7 @@ namespace RFSourceControllerApp.Model.Data
             }
         }
 
-        public uint MessageSize
+        public UInt32 MessageSize
         {
             get
             {
@@ -62,7 +67,7 @@ namespace RFSourceControllerApp.Model.Data
         /// </summary>
         /// <param name="header"></param>
         /// <param name="messageType"></param>
-        public MessagePacketHeader(ulong header, int messageType)
+        public MessagePacketHeader(UInt64 header, Int32 messageType)
         {
             _Header = header;
             _Messagetype = messageType;

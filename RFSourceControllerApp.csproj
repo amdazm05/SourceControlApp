@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Data\MessagePacketHeader.cs" />
     <Compile Include="Model\Data\Transmission.cs" />
     <Compile Include="Model\Data\TransmissionResult.cs" />
     <Compile Include="Model\EventArg\ReceivedEventArgs.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Model\Util\NetworkUtils.cs" />
     <Compile Include="Model\Util\SettingsUtils.cs" />
     <Compile Include="Model\Util\StringFormatUtils.cs" />
+    <Compile Include="Model\Util\StructUtils.cs" />
     <Compile Include="UIFragments\ToggleSwitch.xaml.cs">
       <DependentUpon>ToggleSwitch.xaml</DependentUpon>
     </Compile>
