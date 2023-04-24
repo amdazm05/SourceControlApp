@@ -23,7 +23,7 @@ namespace RFSourceControllerApp.Model
         
         public TcpClient()
         {           
-            _buffer = new byte[8192];            
+            _buffer = new byte[1<<16];            
         }
 
 
