@@ -18,15 +18,19 @@ namespace RFSourceControllerApp.ViewModel
         private MessagePacketHeader _TranmissionHeader;
         private MessagePacketHeader _RecievedHeader;
         private byte[] _MessageContentTrasmitBuffer;
+        private byte[] _MessageContentRecieveBuffer;
+        private bool validDelimFound;
         public MessageSendViewModel( RFSourceControlViewModel SourceControlViewModel, TcpClientViewModel NetworkClientViewModel)
         {
             _TranmissionHeader = new MessagePacketHeader(0xDEADBEEFBEEFFEED,1);
             _RecievedHeader = new MessagePacketHeader();
             _MessageContentTrasmitBuffer = new byte[8192];
+            _MessageContentRecieveBuffer = new byte[8192];
             _SourceControlViewModel = SourceControlViewModel;
             _NetworkClientViewModel = NetworkClientViewModel;
             _SourceControlViewModel.SendData += CastTransmissionDataToMesageDataAndSend;
-            _NetworkClientViewModel._tcpClient.Received += _SourceControlViewModel.ParseJSONDataToSourceModel;
+            _NetworkClientViewModel._tcpClient.Received += CastRecievedBytesToSourceMessage;
+            //_NetworkClientViewModel._tcpClient.Received += _SourceControlViewModel.ParseJSONDataToSourceModel;
         }
 
         public void CastTransmissionDataToMesageDataAndSend(byte[] data)
@@ -41,7 +45,15 @@ namespace RFSourceControllerApp.ViewModel
 
         public void CastRecievedBytesToSourceMessage(object obj, RecievedDataByteBuffer arg)
         {
-            
+            byte[] Header = new byte[16];
+            Buffer.BlockCopy(arg.Message, 0, Header, 0, 16);
+            _RecievedHeader = StructUtils.RawDeserialize<MessagePacketHeader>(Header, 0);
+            if(_RecievedHeader.Header == 0xDEADBEEFBEEFFEED)
+            {
+                arg.Message.CopyTo(_MessageContentRecieveBuffer, 0);
+                Buffer.BlockCopy(arg.Message, 16, _MessageContentRecieveBuffer,0, arg.Message.Length -16);
+                _SourceControlViewModel.ParseJSONDataToSourceModel(_MessageContentRecieveBuffer);
+            }
         }
 
 

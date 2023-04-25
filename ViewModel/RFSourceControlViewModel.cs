@@ -404,9 +404,9 @@ namespace RFSourceControllerApp.ViewModel
             
         }
 
-        public void ParseJSONDataToSourceModel(object obj, RecievedDataByteBuffer arg)
+        public void ParseJSONDataToSourceModel(byte[] arg)
         {
-            string json = Encoding.Default.GetString(arg.Message);
+            string json = Encoding.Default.GetString(arg);
             JObject jsonObject = JObject.Parse(json);
             isRFOn = Convert.ToBoolean(jsonObject.SelectToken("isRFOn").ToString());
             isCWChecked = Convert.ToBoolean(jsonObject.SelectToken("isCW").ToString());
