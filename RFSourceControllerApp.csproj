@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Data\MessagePacketHeader.cs" />
+    <Compile Include="Model\Data\RfSourceJsonSchema.cs" />
     <Compile Include="Model\Data\Transmission.cs" />
     <Compile Include="Model\Data\TransmissionResult.cs" />
     <Compile Include="Model\EventArg\ReceivedEventArgs.cs" />

@@ -9,6 +9,8 @@ using RFSourceControllerApp.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RFSourceControllerApp.Model.EventArg;
+using RFSourceControllerApp.Model.Data;
+
 
 namespace RFSourceControllerApp.ViewModel
 {
@@ -16,6 +18,7 @@ namespace RFSourceControllerApp.ViewModel
     {
         private RFSourceSweepTypes _RFSourceSweeptype;
         private RFSourceParameters _RFSourceParameters;
+        private RfSourceJsonSchema _RfSourceJsonSchema;
         private string _isVisibilePowerSweep = "Hidden";
         private string _isVisibileFreqSweep = "Hidden";
         private string _isVisibileFreqPowerSweep = "Hidden";
@@ -331,12 +334,12 @@ namespace RFSourceControllerApp.ViewModel
         {
             get
             {
-                return _RFSourceParameters.isRFOn;
+                return _RFSourceParameters.isOn;
             }
             set
             {
-                _RFSourceParameters.isRFOn = value;
-                if (_RFSourceParameters.isRFOn)
+                _RFSourceParameters.isOn = value;
+                if (_RFSourceParameters.isOn)
                 {
                     RFButtonONOFFContent = "RF ON";
                 }
@@ -400,6 +403,7 @@ namespace RFSourceControllerApp.ViewModel
 
         public string JSONifyModel()
         {
+            _RfSourceJsonSchema.JsonSerialise();
             return JsonConvert.SerializeObject(_RFSourceParameters);
             
         }
@@ -451,11 +455,11 @@ namespace RFSourceControllerApp.ViewModel
         public void ToggleRf(object obj)
         {
             //Toggle RF State 
-            _RFSourceParameters.isRFOn = !_RFSourceParameters.isRFOn;
+            _RFSourceParameters.isOn = !_RFSourceParameters.isOn;
             byte[] bufferToTransmit = Encoding.ASCII.GetBytes(JSONifyModel());
             if(SendData !=null)
                 SendData?.Invoke(bufferToTransmit);
-            if (_RFSourceParameters.isRFOn)
+            if (_RFSourceParameters.isOn)
             {
                 RFButtonONOFFContent = "RF ON";
             }
@@ -478,8 +482,10 @@ namespace RFSourceControllerApp.ViewModel
 
         public RFSourceControlViewModel(RFSourceSweepTypes RFSourceSweeptype, RFSourceParameters SourceParams)
         {
+
             _RFSourceSweeptype = RFSourceSweeptype;
             _RFSourceParameters = SourceParams;
+            _RfSourceJsonSchema = new RfSourceJsonSchema();
             ButtonCommand = new RelayCommand(new Action<object>(HideViews));
             RfButtonCommand = new RelayCommand(new Action<object>(ToggleRf));
             SweepStartCommand = new RelayCommand(new Action<object>(ToggleSweepStart));

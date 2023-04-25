@@ -36,7 +36,7 @@ namespace RFSourceControllerApp.Model
             set; 
         }
 
-        public bool isRFOn
+        public bool isOn
         {
             get;
             set;
@@ -44,7 +44,7 @@ namespace RFSourceControllerApp.Model
 
         public RFSourceParameters()
         {
-            isRFOn = false;
+            isOn = false;
         }
     }
 }

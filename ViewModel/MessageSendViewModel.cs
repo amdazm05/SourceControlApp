@@ -30,7 +30,6 @@ namespace RFSourceControllerApp.ViewModel
             _NetworkClientViewModel = NetworkClientViewModel;
             _SourceControlViewModel.SendData += CastTransmissionDataToMesageDataAndSend;
             _NetworkClientViewModel._tcpClient.Received += CastRecievedBytesToSourceMessage;
-            //_NetworkClientViewModel._tcpClient.Received += _SourceControlViewModel.ParseJSONDataToSourceModel;
         }
 
         public void CastTransmissionDataToMesageDataAndSend(byte[] data)
