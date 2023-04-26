@@ -37,9 +37,9 @@
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Center"
             Background="WhiteSmoke">
-            <TextBlock>Starting Power</TextBlock>
-            <TextBlock>Ending Power</TextBlock>
-            <TextBlock>Power Step</TextBlock>
+            <TextBlock>Starting Power(dbm)</TextBlock>
+            <TextBlock>Ending Power(dbm)</TextBlock>
+            <TextBlock>Power Step(dbm)</TextBlock>
             <TextBlock>Dwell Time (ms)</TextBlock>
             <TextBlock>Wait Time  (ms)</TextBlock>
         </StackPanel>
