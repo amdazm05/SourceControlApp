@@ -65,7 +65,7 @@
                                 HorizontalAlignment="Stretch" 
                                 VerticalAlignment="Center"
                                 Background="WhiteSmoke">
-                <TextBlock>Frequency (Hz)</TextBlock>
+                <TextBlock>Frequency (KHz)</TextBlock>
                 <TextBlock>Pulse Width (PW)</TextBlock>
                 <TextBlock>Pulse Return Interval (PRI)</TextBlock>
                 <TextBlock>Power (dBm)</TextBlock>
