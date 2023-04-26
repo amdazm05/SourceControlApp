@@ -153,13 +153,14 @@ namespace RFSourceControllerApp.ViewModel
             set
             {
                 _RFSourceSweeptype.SweepType = value;
-                if(_RFSourceSweeptype.SweepType.Contains("FreqSweep"))
+                if (_RFSourceSweeptype.SweepType.Contains("FreqSweep"))
                 {
                     isVisibileFreqSweep = "Visible";
                     isRFButtonVisible = "Hidden";
                     FixedParameterEnabled = false;
                     SweepInfoBar = "Visible";
                     isSweepStartVisible = "Visible";
+                    _RFSourceSweeptype.SweepType = "FreqSweep";
 
                 }
                 if (_RFSourceSweeptype.SweepType.Contains("PowerSweep"))
@@ -169,14 +170,25 @@ namespace RFSourceControllerApp.ViewModel
                     FixedParameterEnabled = false;
                     SweepInfoBar = "Visible";
                     isSweepStartVisible = "Visible";
+                    _RFSourceSweeptype.SweepType = "PowerSweep";
                 }
-                if (_RFSourceSweeptype.SweepType.Contains("Frequency-Power") || _RFSourceSweeptype.SweepType.Contains("Power-Frequency"))
+                if (_RFSourceSweeptype.SweepType.Contains("Frequency-Power"))
                 {
                     isVisibileFreqPowerSweep = "Visible";
                     isRFButtonVisible = "Hidden";
                     FixedParameterEnabled = false;
                     SweepInfoBar = "Visible";
                     isSweepStartVisible = "Visible";
+                    _RFSourceSweeptype.SweepType = "FreqPowerSweep";
+                }
+                if(_RFSourceSweeptype.SweepType.Contains("Power-Frequency"))
+                {
+                    isVisibileFreqPowerSweep = "Visible";
+                    isRFButtonVisible = "Hidden";
+                    FixedParameterEnabled = false;
+                    SweepInfoBar = "Visible";
+                    isSweepStartVisible = "Visible";
+                    _RFSourceSweeptype.SweepType = "PowerFreqSweep";
                 }
                 if (_RFSourceSweeptype.SweepType.Contains("Fixed"))
                 {
@@ -184,6 +196,7 @@ namespace RFSourceControllerApp.ViewModel
                     FixedParameterEnabled = true;
                     SweepInfoBar = "Hidden";
                     isSweepStartVisible = "Hidden";
+                    _RFSourceSweeptype.SweepType = "Fixed";
                 }
 
                 OnPropertyChanged(nameof(SweepType));
@@ -253,6 +266,19 @@ namespace RFSourceControllerApp.ViewModel
             {
                 _RFSourceParameters.isCW = Convert.ToBoolean(value);
                 OnPropertyChanged(nameof(isCWChecked));
+            }
+        }
+
+        public bool isCyclicMode
+        {
+            get
+            {
+                return _RFSourceSweeptype.CyclicMode;
+            }
+            set
+            {
+                _RFSourceSweeptype.CyclicMode = Convert.ToBoolean(value);
+                OnPropertyChanged(nameof(isCyclicMode));
             }
         }
 
@@ -366,11 +392,11 @@ namespace RFSourceControllerApp.ViewModel
         {
             get
             {
-                return _RFSourceSweeptype.StepSize;
+                return _RFSourceSweeptype.RfStep;
             }
             set
             {
-                _RFSourceSweeptype.StepSize = value;
+                _RFSourceSweeptype.RfStep = value;
                 OnPropertyChanged(nameof(StepSize));
             }
         }
@@ -388,6 +414,20 @@ namespace RFSourceControllerApp.ViewModel
             }
         }
 
+        public double WaitTime
+        {
+            get
+            {
+                return _RFSourceSweeptype.WaitTime;
+            }
+            set
+            {
+                _RFSourceSweeptype.WaitTime = value;
+                OnPropertyChanged(nameof(WaitTime));
+            }
+        }
+
+
         //hides the RF button and the Sweep Views
         public ICommand ButtonCommand
         {
@@ -402,22 +442,32 @@ namespace RFSourceControllerApp.ViewModel
         }
 
         public string JSONifyModel()
-        {
-            _RfSourceJsonSchema.JsonSerialise();
-            return JsonConvert.SerializeObject(_RFSourceParameters);
+        { 
+
+            _RfSourceJsonSchema.SetSourceParamsFromModel(0,_RFSourceParameters, _RFSourceSweeptype);
+            return _RfSourceJsonSchema.JsonSerialise();
             
         }
 
         public void ParseJSONDataToSourceModel(byte[] arg)
         {
             string json = Encoding.Default.GetString(arg);
-            JObject jsonObject = JObject.Parse(json);
-            isRFOn = Convert.ToBoolean(jsonObject.SelectToken("isRFOn").ToString());
-            isCWChecked = Convert.ToBoolean(jsonObject.SelectToken("isCW").ToString());
-            PwUpdate = Convert.ToDouble(jsonObject.SelectToken("Pw").ToString());
-            PriUpdate = Convert.ToDouble(jsonObject.SelectToken("Pri").ToString());
-            PowerUpdate = Convert.ToDouble(jsonObject.SelectToken("Power").ToString());
-            RfUpdate = Convert.ToDouble(jsonObject.SelectToken("Rf").ToString());
+            try
+            {
+                JObject jsonObject = JObject.Parse(json);
+                isRFOn = Convert.ToBoolean(jsonObject.SelectToken("SourceParameters")[0].SelectToken("isOn").ToString());
+                isCWChecked = Convert.ToBoolean(jsonObject.SelectToken("SourceParameters")[0].SelectToken("isCW").ToString());
+                PwUpdate = Convert.ToDouble(jsonObject.SelectToken("SourceParameters")[0].SelectToken("Pw").ToString());
+                PriUpdate = Convert.ToDouble(jsonObject.SelectToken("SourceParameters")[0].SelectToken("Pri").ToString());
+                PowerUpdate = Convert.ToDouble(jsonObject.SelectToken("SourceParameters")[0].SelectToken("Power").ToString());
+                RfUpdate = Convert.ToDouble(jsonObject.SelectToken("SourceParameters")[0].SelectToken("Rf").ToString());
+            }
+
+            catch(Exception e)
+            {
+
+            }
+            
         }
 
         public ICommand RfButtonCommand
@@ -473,6 +523,9 @@ namespace RFSourceControllerApp.ViewModel
         {
             //Toggle RF State 
             _RFSourceSweeptype.StartSweep = !_RFSourceSweeptype.StartSweep;
+            byte[] bufferToTransmit = Encoding.ASCII.GetBytes(JSONifyModel());
+            if (SendData != null)
+                SendData?.Invoke(bufferToTransmit);
             if (_RFSourceSweeptype.StartSweep)
                 SweepButtonStartContent = "Stop Sweep";
             else
@@ -484,8 +537,9 @@ namespace RFSourceControllerApp.ViewModel
         {
 
             _RFSourceSweeptype = RFSourceSweeptype;
+            SweepType = "Fixed";
             _RFSourceParameters = SourceParams;
-            _RfSourceJsonSchema = new RfSourceJsonSchema();
+            _RfSourceJsonSchema = new RfSourceJsonSchema(1);
             ButtonCommand = new RelayCommand(new Action<object>(HideViews));
             RfButtonCommand = new RelayCommand(new Action<object>(ToggleRf));
             SweepStartCommand = new RelayCommand(new Action<object>(ToggleSweepStart));

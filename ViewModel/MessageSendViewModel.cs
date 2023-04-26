@@ -18,14 +18,11 @@ namespace RFSourceControllerApp.ViewModel
         private MessagePacketHeader _TranmissionHeader;
         private MessagePacketHeader _RecievedHeader;
         private byte[] _MessageContentTrasmitBuffer;
-        private byte[] _MessageContentRecieveBuffer;
-        private bool validDelimFound;
         public MessageSendViewModel( RFSourceControlViewModel SourceControlViewModel, TcpClientViewModel NetworkClientViewModel)
         {
             _TranmissionHeader = new MessagePacketHeader(0xDEADBEEFBEEFFEED,1);
             _RecievedHeader = new MessagePacketHeader();
             _MessageContentTrasmitBuffer = new byte[8192];
-            _MessageContentRecieveBuffer = new byte[8192];
             _SourceControlViewModel = SourceControlViewModel;
             _NetworkClientViewModel = NetworkClientViewModel;
             _SourceControlViewModel.SendData += CastTransmissionDataToMesageDataAndSend;
@@ -49,9 +46,9 @@ namespace RFSourceControllerApp.ViewModel
             _RecievedHeader = StructUtils.RawDeserialize<MessagePacketHeader>(Header, 0);
             if(_RecievedHeader.Header == 0xDEADBEEFBEEFFEED)
             {
-                arg.Message.CopyTo(_MessageContentRecieveBuffer, 0);
-                Buffer.BlockCopy(arg.Message, 16, _MessageContentRecieveBuffer,0, arg.Message.Length -16);
-                _SourceControlViewModel.ParseJSONDataToSourceModel(_MessageContentRecieveBuffer);
+                byte[] messageArray = new byte[_RecievedHeader.MessageSize];
+                Buffer.BlockCopy(arg.Message, 16, messageArray, 0, (int)_RecievedHeader.MessageSize);
+                _SourceControlViewModel.ParseJSONDataToSourceModel(messageArray);
             }
         }
 
