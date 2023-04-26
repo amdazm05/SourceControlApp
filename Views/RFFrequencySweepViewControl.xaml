@@ -41,6 +41,7 @@
             <TextBlock>Ending Frequency</TextBlock>
             <TextBlock>Step Size (Hz)</TextBlock>
             <TextBlock>Dwell Time (ms)</TextBlock>
+            <TextBlock>Wait Time (ms)</TextBlock>
         </StackPanel>
         <!--This panel is for all the input fields-->
         <StackPanel
@@ -53,9 +54,12 @@
             >
             <TextBox  x:Name="ioBoxFreqStart"       Text="{Binding Path=RfStart}"    />
             <TextBox  x:Name="ioBoxFreqEnd"         Text="{Binding Path=RfStop}"  />
-            <TextBox  x:Name="ioBoxStepSize"        Text="{Binding Path=StepSize}"  />
+            <TextBox  x:Name="ioBoxStepSize"        Text="{Binding Path=RfStep}"  />
             <TextBox  x:Name="ioDwellTime"          Text="{Binding Path=DwellTime}"  />
+            <TextBox  x:Name="ioWaitTime"           Text="{Binding Path=WaitTime}"   />
         </StackPanel>
+        <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2">Cyclic Mode</TextBlock>
+        <uc:ToggleSwitch x:Name="CyclicModeSwitch" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch"></uc:ToggleSwitch>
         <Button  x:Name ="SetButton" Margin="30,30" Grid.Column="2" Grid.Row="2" Background="Azure">Set</Button>
     </Grid>
 </UserControl>

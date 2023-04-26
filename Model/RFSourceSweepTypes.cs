@@ -63,6 +63,19 @@ namespace RFSourceControllerApp.Model
             set;
         }
 
+        public bool CyclicMode
+        {
+            get;
+            set;
+        }
+
+        public double WaitTime
+        {
+            get;
+            set;
+        }
+
+
         public RFSourceSweepTypes()
         {
             SweepType = null;

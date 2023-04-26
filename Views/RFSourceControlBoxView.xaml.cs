@@ -41,6 +41,13 @@ namespace RFSourceControllerApp.Views
             Binding xBinding_PowerFreq = new Binding();
             xBinding_PowerFreq.Path = new PropertyPath("ButtonCommand");
             BindingOperations.SetBinding(PowerFreqSweepView.SetButton, Button.CommandProperty, xBinding_PowerFreq);
+
+            Binding xBinding_CyclicMode = new Binding();
+            xBinding_CyclicMode.Path = new PropertyPath("isCyclicMode");
+            xBinding_CyclicMode.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(PowerFreqSweepView.CyclicModeSwitch.CheckBoxSwitch, CheckBox.IsCheckedProperty, xBinding_CyclicMode);
+            BindingOperations.SetBinding(FrequencySweepView.CyclicModeSwitch.CheckBoxSwitch, CheckBox.IsCheckedProperty, xBinding_CyclicMode);
+            BindingOperations.SetBinding(PowerSweepView.CyclicModeSwitch.CheckBoxSwitch, CheckBox.IsCheckedProperty, xBinding_CyclicMode);
         }
     }
 }

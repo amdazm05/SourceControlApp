@@ -12,12 +12,14 @@ namespace RFSourceControllerApp.Model.Data
     {
         public struct SourceParameters
         {
+            [JsonProperty("SyncId")]
+            public int SyncId { get; set; }
             [JsonProperty("SourceIndex")]
-            int SourceIndex { get; set; }
+            public int SourceIndex { get; set; }
             [JsonProperty("sourceName")]
             public string sourceName { get; set; }
             [JsonProperty("Rf")]
-            public double Rf { get; set; }
+            public double Rf { get;  set;}
             [JsonProperty("Pri")]
             public double Pri { get; set; }
             [JsonProperty("Pw")]
@@ -25,11 +27,11 @@ namespace RFSourceControllerApp.Model.Data
             [JsonProperty("Power")]
             public double Power { get; set; }
             [JsonProperty("isCW")]
-            public double isCW { get; set; }
+            public bool isCW { get; set; }
             [JsonProperty("isOn")]
-            public double isOn { get; set; }
+            public bool isOn { get; set; }
             [JsonProperty("SweepType")]
-            public double SweepType { get; set; }
+            public string SweepType { get; set; }
             [JsonProperty("DwellTime")]
             public double DwellTime { get; set; }
             [JsonProperty("RfStart")]
@@ -44,18 +46,51 @@ namespace RFSourceControllerApp.Model.Data
             public double PowerStop { get; set; }
             [JsonProperty("PowerStep")]
             public double PowerStep { get; set; }
+            [JsonProperty("CyclicMode")]
+            public bool CyclicMode { get; set; }
+            [JsonProperty("WaitTime")]
+            public double WaitTime { get; set; }
         }
+        [JsonProperty("SourceCount")]
+        public int sourceCount;
         [JsonProperty("SourceParameters")]
         public List<SourceParameters> SourceParams { get; set; }
-        public RfSourceJsonSchema()
+
+        public RfSourceJsonSchema(int numberOfSources)
         {
-            SourceParams = new List<SourceParameters>(3);
-            //SourceParameters param1 = new SourceParameters();
-            //SourceParams.Add(param1);
-            //SourceParams.Add(param1);
-            //SourceParams.Add(param1);
+            sourceCount = numberOfSources;
+            SourceParams = new List<SourceParameters>(numberOfSources);
+            for(int i=0; i<numberOfSources;i++)
+            {
+                SourceParameters sourceParams = new SourceParameters();
+                sourceParams.SourceIndex = i;
+                sourceParams.SyncId = 7;
+                SourceParams.Add(sourceParams);
+            }
         }
 
+        //Helpers
+        public void SetSourceParamsFromModel(int index , RFSourceParameters Params, RFSourceSweepTypes SweepParams)
+        {
+            SourceParameters  UpdatedParams = SourceParams[index];
+            UpdatedParams.Rf = Params.Rf;
+            UpdatedParams.Pri = Params.Pri;
+            UpdatedParams.Pw = Params.Pw;
+            UpdatedParams.Power = Params.Power;
+            UpdatedParams.isCW = Params.isCW;
+            UpdatedParams.isOn = Params.isCW;
+            UpdatedParams.SweepType = SweepParams.SweepType;
+            UpdatedParams.DwellTime = SweepParams.DwellTime;
+            UpdatedParams.RfStart = SweepParams.RfStart;
+            UpdatedParams.RfStop = SweepParams.RfStop;
+            UpdatedParams.RfStep = SweepParams.RfStep;
+            UpdatedParams.PowerStart = SweepParams.PowerStart;
+            UpdatedParams.PowerStop = SweepParams.PowerStop;
+            UpdatedParams.PowerStep = SweepParams.PowerStep;
+            UpdatedParams.CyclicMode = SweepParams.CyclicMode;
+            UpdatedParams.WaitTime = SweepParams.WaitTime;
+            SourceParams[index]  = UpdatedParams;
+        }
         public string JsonSerialise()
         {
             string message = JsonConvert.SerializeObject(this);

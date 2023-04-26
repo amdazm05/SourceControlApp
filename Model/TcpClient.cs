@@ -99,8 +99,8 @@ namespace RFSourceControllerApp.Model
                             Transmission msg = new Transmission(data, Transmission.EType.Received);
                             msg.Destination = _tcpClient.Client.LocalEndPoint as IPEndPoint;
                             msg.Origin = _tcpClient.Client.RemoteEndPoint as IPEndPoint;
-
-                            Received?.Invoke(this, new RecievedDataByteBuffer(data));
+                            RecievedDataByteBuffer  RecievedDataBufferEvent= new RecievedDataByteBuffer(data);
+                            Received?.Invoke(this, RecievedDataBufferEvent);
                         }
                         else
                         {
